@@ -39,7 +39,7 @@ export default function FacilityReviewsSection({
   const averageRating = data?.averageRating;
 
   return (
-    <div className="rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 space-y-8 shadow-2xl">
+    <div className="rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 space-y-8 shadow-2xl">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
         <div>
@@ -133,7 +133,7 @@ export default function FacilityReviewsSection({
               {data?.reviews?.map((r: any) => (
                 <div
                   key={r._id}
-                  className="p-5 rounded-2xl border border-slate-800 bg-[#0b101d] space-y-3 shadow-md hover:border-slate-700 transition-colors"
+                  className="p-5 rounded-2xl border border-slate-800 bg-[var(--app-bg)] space-y-3 shadow-md hover:border-slate-700 transition-colors"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5">

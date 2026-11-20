@@ -1,5 +1,6 @@
 "use client";
 
+import Avatar from "@/components/illustrations/Avatar";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
@@ -38,7 +39,6 @@ export default function TeacherSidebar({
   isOpen,
   onClose,
   activeTab = "overview",
-  onTabChange,
 }: TeacherSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -46,10 +46,9 @@ export default function TeacherSidebar({
   const { data: session } = useSession();
   const user = session?.user;
 
-  const handleNavClick = (tab: string) => {
-    if (onTabChange) {
-      onTabChange(tab);
-    }
+  // Items are real links, so navigation works from any teacher page
+  // (events, profile, notifications) — not only from the dashboard.
+  const handleNavClick = () => {
     if (onClose) {
       onClose();
     }
@@ -69,14 +68,14 @@ export default function TeacherSidebar({
       {/* Sidebar container */}
       <aside
         className={cn(
-          "fixed top-0 bottom-0 left-0 z-50 flex w-72 flex-col bg-[#0f0e17] border-r border-purple-950/60 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
+          "fixed top-0 bottom-0 left-0 z-50 flex w-72 flex-col bg-[var(--surface)] border-r border-purple-950/60 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Brand Header */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-purple-950/60 bg-[#141224]/50">
+        <div className="flex h-20 items-center justify-between px-6 border-b border-purple-950/60 bg-[var(--surface)]/50">
           <Link href="/teacher/dashboard" className="flex items-center gap-3 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-[var(--brand-accent)] shadow-lg shadow-purple-500/25 group-hover:scale-105 transition-transform">
               <GraduationCap className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -121,13 +120,13 @@ export default function TeacherSidebar({
 
           {teacherNavItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname.startsWith("/teacher") && currentTab === item.tab;
+            const isActive = pathname === "/teacher/dashboard" && currentTab === item.tab;
 
             return (
-              <button
+              <Link
                 key={item.tab}
-                type="button"
-                onClick={() => handleNavClick(item.tab)}
+                href={item.tab === "overview" ? "/teacher/dashboard" : `/teacher/dashboard?tab=${item.tab}`}
+                onClick={handleNavClick}
                 className={cn(
                   "w-full group flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-sm font-semibold transition-all relative text-left",
                   isActive
@@ -145,9 +144,9 @@ export default function TeacherSidebar({
                 />
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="ml-auto h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc]" />
+                  <span className="ml-auto h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_var(--color-purple-400)]" />
                 )}
-              </button>
+              </Link>
             );
           })}
 
@@ -185,11 +184,9 @@ export default function TeacherSidebar({
         </div>
 
         {/* Profile Card & Logout Footer */}
-        <div className="p-4 border-t border-purple-950/60 bg-[#141224]/70">
+        <div className="p-4 border-t border-purple-950/60 bg-[var(--surface)]/70">
           <div className="flex items-center gap-3 rounded-xl bg-purple-950/40 p-3 border border-purple-900/40">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 font-bold text-sm">
-              {user?.name ? user.name.charAt(0).toUpperCase() : "T"}
-            </div>
+            <Avatar name={user?.name} size={40} />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-bold text-slate-200">
                 {user?.name || "Faculty Member"}

@@ -44,7 +44,7 @@ export default function BookingCard({ booking, onCancel }: BookingCardProps) {
   const cancellable = booking.canCancel ?? (booking.status === "CONFIRMED" || booking.status === "PENDING");
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-800/80 bg-[#0d1322] p-5 shadow-lg transition-all hover:border-slate-700 flex flex-col justify-between">
+    <div className="overflow-hidden rounded-2xl border border-slate-800/80 bg-[var(--surface)] p-5 shadow-lg transition-all hover:border-slate-700 flex flex-col justify-between">
       <div>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
           <div className="flex items-center gap-2">

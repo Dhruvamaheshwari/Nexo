@@ -1,8 +1,10 @@
 "use client";
 
+import ThemeToggle from "@/components/ThemeToggle";
+import Avatar from "@/components/illustrations/Avatar";
 import { useSession } from "next-auth/react";
-import { Menu, Bell, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Menu, Sparkles } from "lucide-react";
+import NotificationBell from "@/components/notifications/NotificationBell";
 
 interface TeacherHeaderProps {
   onMenuClick?: () => void;
@@ -19,7 +21,7 @@ export default function TeacherHeader({
   const user = session?.user;
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-purple-950/60 bg-[#0f0e17]/80 px-4 sm:px-6 lg:px-8 backdrop-blur-md">
+    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b border-purple-950/60 bg-[var(--surface)]/80 px-4 sm:px-6 lg:px-8 backdrop-blur-md">
       <div className="flex items-center gap-4">
         {/* Mobile menu trigger */}
         <button
@@ -44,13 +46,8 @@ export default function TeacherHeader({
       </div>
 
       <div className="flex items-center gap-3">
-        <Link
-          href="/notifications"
-          className="relative rounded-xl border border-purple-900/50 bg-[#161426] p-2.5 text-slate-300 hover:bg-purple-950/60 hover:text-purple-300 transition-colors"
-          title="Notifications"
-        >
-          <Bell className="h-5 w-5" />
-        </Link>
+        <ThemeToggle />
+        <NotificationBell accent="purple" />
 
         <div className="hidden sm:flex items-center gap-3 pl-3 border-l border-purple-900/50">
           <div className="text-right">
@@ -61,9 +58,7 @@ export default function TeacherHeader({
               Teacher
             </p>
           </div>
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-purple-500/20">
-            {user?.name ? user.name.charAt(0).toUpperCase() : "T"}
-          </div>
+          <Avatar name={user?.name} size={38} />
         </div>
       </div>
     </header>

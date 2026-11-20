@@ -373,31 +373,31 @@ export default function AdminBookingsClient({
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4">
           <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Bookings</p>
-          <p className="text-2xl font-extrabold text-white mt-1.5">{stats.total.toLocaleString()}</p>
+          <p className="text-2xl font-extrabold text-white mt-1.5">{stats.total.toLocaleString("en-US")}</p>
           <p className="text-[11px] text-zinc-500 mt-0.5">All recorded bookings</p>
         </div>
 
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4">
           <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Confirmed</p>
-          <p className="text-2xl font-extrabold text-emerald-400 mt-1.5">{stats.confirmed.toLocaleString()}</p>
+          <p className="text-2xl font-extrabold text-emerald-400 mt-1.5">{stats.confirmed.toLocaleString("en-US")}</p>
           <p className="text-[11px] text-zinc-500 mt-0.5">Active facility reservations</p>
         </div>
 
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4">
           <p className="text-xs font-semibold text-amber-400 uppercase tracking-wider">Pending</p>
-          <p className="text-2xl font-extrabold text-amber-400 mt-1.5">{stats.pending.toLocaleString()}</p>
+          <p className="text-2xl font-extrabold text-amber-400 mt-1.5">{stats.pending.toLocaleString("en-US")}</p>
           <p className="text-[11px] text-zinc-500 mt-0.5">Awaiting admin review</p>
         </div>
 
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4">
           <p className="text-xs font-semibold text-rose-400 uppercase tracking-wider">Cancelled</p>
-          <p className="text-2xl font-extrabold text-rose-400 mt-1.5">{stats.cancelled.toLocaleString()}</p>
+          <p className="text-2xl font-extrabold text-rose-400 mt-1.5">{stats.cancelled.toLocaleString("en-US")}</p>
           <p className="text-[11px] text-zinc-500 mt-0.5">User or admin cancelled</p>
         </div>
 
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl p-4 col-span-2 sm:col-span-1">
           <p className="text-xs font-semibold text-sky-400 uppercase tracking-wider">Completed</p>
-          <p className="text-2xl font-extrabold text-sky-400 mt-1.5">{stats.completed.toLocaleString()}</p>
+          <p className="text-2xl font-extrabold text-sky-400 mt-1.5">{stats.completed.toLocaleString("en-US")}</p>
           <p className="text-[11px] text-zinc-500 mt-0.5">Past concluded sessions</p>
         </div>
       </div>

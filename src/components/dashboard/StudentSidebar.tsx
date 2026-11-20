@@ -1,7 +1,8 @@
 "use client";
 
+import Avatar from "@/components/illustrations/Avatar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import {
   LayoutDashboard,
@@ -36,6 +37,8 @@ const navItems = [
 
 export default function StudentSidebar({ isOpen, onClose }: StudentSidebarProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const onWaitlistTab = searchParams.get("tab") === "waitlist";
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -53,14 +56,14 @@ export default function StudentSidebar({ isOpen, onClose }: StudentSidebarProps)
       {/* Sidebar container */}
       <aside
         className={cn(
-          "fixed top-0 bottom-0 left-0 z-50 flex w-72 flex-col bg-[#0b0f19] border-r border-slate-800/80 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
+          "fixed top-0 bottom-0 left-0 z-50 flex w-72 flex-col bg-[var(--surface)] border-r border-slate-800/80 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Brand Header */}
         <div className="flex h-20 items-center justify-between px-6 border-b border-slate-800/80">
           <Link href="/student/dashboard" className="flex items-center gap-3 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-lime-400 to-emerald-500 shadow-lg shadow-lime-400/20 group-hover:scale-105 transition-transform">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-lime-400 to-[var(--brand-accent)] shadow-lg shadow-lime-400/25 group-hover:scale-105 transition-transform">
               <Zap className="h-5 w-5 text-slate-950 fill-slate-950" />
             </div>
             <div>
@@ -91,9 +94,14 @@ export default function StudentSidebar({ isOpen, onClose }: StudentSidebarProps)
           {navItems.map((item) => {
             const Icon = item.icon;
             const pureHref = item.href.split("?")[0];
-            const isActive =
+            const isWaitlistItem = item.href.includes("tab=waitlist");
+            const pathMatch =
               pathname === pureHref ||
-              (pureHref !== "/student/dashboard" && pathname.startsWith(pureHref));
+              (pureHref !== "/student/dashboard" && pathname.startsWith(pureHref + "/"));
+            const isActive =
+              pureHref === "/bookings"
+                ? pathMatch && isWaitlistItem === onWaitlistTab
+                : pathMatch;
 
             return (
               <Link
@@ -117,7 +125,7 @@ export default function StudentSidebar({ isOpen, onClose }: StudentSidebarProps)
                 />
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="ml-auto h-2 w-2 rounded-full bg-lime-400 shadow-[0_0_8px_#a3e635]" />
+                  <span className="ml-auto h-2 w-2 rounded-full bg-lime-400 shadow-[0_0_8px_var(--color-lime-400)]" />
                 )}
               </Link>
             );
@@ -125,11 +133,9 @@ export default function StudentSidebar({ isOpen, onClose }: StudentSidebarProps)
         </div>
 
         {/* Profile Card & Logout Footer */}
-        <div className="p-4 border-t border-slate-800/80 bg-[#0d1322]/60">
+        <div className="p-4 border-t border-slate-800/80 bg-[var(--surface)]/60">
           <div className="flex items-center gap-3 rounded-xl bg-slate-900/80 p-3 border border-slate-800">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-lime-400/15 border border-lime-400/30 text-lime-400 font-bold text-sm">
-              {user?.name ? user.name.charAt(0).toUpperCase() : "S"}
-            </div>
+            <Avatar name={user?.name} size={40} />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-bold text-slate-200">
                 {user?.name || "Student"}

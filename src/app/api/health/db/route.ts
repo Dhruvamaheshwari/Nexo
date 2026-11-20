@@ -12,13 +12,12 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error occurred";
+    // Log details server-side only; never expose connection errors publicly.
+    console.error("[health] Database check failed:", error);
     return NextResponse.json(
       {
         status: "error",
         database: "disconnected",
-        error: errorMessage,
       },
       { status: 503 }
     );

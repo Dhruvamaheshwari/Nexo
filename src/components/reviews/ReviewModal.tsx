@@ -68,7 +68,7 @@ export default function ReviewModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="w-full max-w-md rounded-3xl border border-slate-800 bg-[#0d1322] p-6 shadow-2xl relative">
+      <div className="w-full max-w-md rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 shadow-2xl relative">
         <button
           onClick={onClose}
           className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
@@ -128,7 +128,7 @@ export default function ReviewModal({
                         <Star
                           className={`h-7 w-7 transition-colors ${
                             isFilled
-                              ? "fill-lime-400 text-lime-400 drop-shadow-[0_0_8px_rgba(163,230,53,0.4)]"
+                              ? "fill-lime-400 text-lime-400 drop-shadow-[0_0_8px_var(--color-lime-400)]"
                               : "text-slate-700"
                           }`}
                         />

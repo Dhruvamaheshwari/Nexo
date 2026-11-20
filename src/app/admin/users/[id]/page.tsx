@@ -102,7 +102,7 @@ export default async function AdminUserDetailsPage({
                   </span>
                 )}
                 <span>
-                  Member since: {new Date(user.createdAt).toLocaleDateString()}
+                  Member since: {new Date(user.createdAt).toLocaleDateString("en-US")}
                 </span>
               </div>
             </div>
@@ -150,14 +150,14 @@ export default async function AdminUserDetailsPage({
                       </span>
                     </div>
                     <div className="text-[11px] text-zinc-400 font-mono mt-0.5">
-                      {new Date(b.startAt).toLocaleString([], {
+                      {new Date(b.startAt).toLocaleString("en-US", {
                         month: "short",
                         day: "numeric",
                         hour: "2-digit",
                         minute: "2-digit",
                       })}{" "}
                       –{" "}
-                      {new Date(b.endAt).toLocaleTimeString([], {
+                      {new Date(b.endAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -203,7 +203,7 @@ export default async function AdminUserDetailsPage({
                     </div>
                     <div className="text-[11px] text-zinc-400 font-mono mt-0.5">
                       Expected Return:{" "}
-                      {new Date(c.expectedReturnAt).toLocaleDateString()}
+                      {new Date(c.expectedReturnAt).toLocaleDateString("en-US")}
                     </div>
                   </div>
                   <span className="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-zinc-800 text-zinc-300 border border-zinc-700">
@@ -243,7 +243,7 @@ export default async function AdminUserDetailsPage({
                       </span>
                     </span>
                     <span className="text-[10px] text-zinc-500 font-mono">
-                      {new Date(a.createdAt).toLocaleString()}
+                      {new Date(a.createdAt).toLocaleString("en-US")}
                     </span>
                   </div>
                   <div className="text-[11px] text-zinc-400 mt-1">

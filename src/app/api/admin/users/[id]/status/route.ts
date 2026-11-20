@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { publicErrorMessage } from "@/lib/api-errors";
 import { validateApiAuth } from "@/lib/auth-utils";
 import {
   userIdParamSchema,
@@ -86,7 +87,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       );
     }
 
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }
 

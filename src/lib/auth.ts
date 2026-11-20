@@ -6,6 +6,18 @@ import User, { UserRole } from "@/models/User";
 import { loginSchema } from "@/lib/validations/auth";
 import { authConfig } from "@/lib/auth.config";
 
+// Fail loudly (once, at boot) instead of surfacing an opaque Auth.js "MissingSecret" later.
+if (
+  process.env.NODE_ENV === "production" &&
+  process.env.NEXT_PHASE !== "phase-production-build" &&
+  !process.env.AUTH_SECRET &&
+  !process.env.NEXTAUTH_SECRET
+) {
+  console.error(
+    "[env] Missing AUTH_SECRET. Set it in your hosting environment variables (generate with `openssl rand -base64 32`). See .env.example."
+  );
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [

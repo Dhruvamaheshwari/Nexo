@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import Navbar from "@/components/Navbar";
+import RoleLayout from "@/components/dashboard/RoleLayout";
 import {
   Trophy,
   Calendar,
@@ -181,10 +181,8 @@ export default function EventsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col">
-      <Navbar />
-
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <RoleLayout title="Tournaments & Events">
+<div className="w-full">
         {/* Hero Section */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-purple-950/40 border border-slate-800/80 p-6 sm:p-10 mb-8 shadow-2xl">
           <div className="max-w-2xl relative z-10">
@@ -206,7 +204,7 @@ export default function EventsClient() {
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-[#0e1320] border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 space-y-4">
+        <div className="bg-[var(--surface)] border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {/* Search */}
             <div className="relative">
@@ -304,7 +302,7 @@ export default function EventsClient() {
             </button>
           </div>
         ) : events.length === 0 ? (
-          <div className="p-16 rounded-3xl bg-[#0e1320] border border-slate-800 text-center">
+          <div className="p-16 rounded-3xl bg-[var(--surface)] border border-slate-800 text-center">
             <Trophy className="w-14 h-14 text-slate-600 mx-auto mb-4" />
             <h3 className="text-lg font-bold text-white">No events found</h3>
             <p className="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
@@ -323,7 +321,7 @@ export default function EventsClient() {
               return (
                 <div
                   key={evt._id}
-                  className="group relative flex flex-col rounded-2xl bg-[#0d121f] border border-slate-800 hover:border-purple-500/50 transition-all duration-200 overflow-hidden shadow-lg hover:shadow-purple-500/5"
+                  className="group relative flex flex-col rounded-2xl bg-[var(--surface)] border border-slate-800 hover:border-purple-500/50 transition-all duration-200 overflow-hidden shadow-lg hover:shadow-purple-500/5"
                 >
                   <div className="p-5 flex-1 flex flex-col">
                     {/* Header Badges */}
@@ -361,12 +359,12 @@ export default function EventsClient() {
                             day: "numeric",
                           })}{" "}
                           ·{" "}
-                          {new Date(evt.startAt).toLocaleTimeString([], {
+                          {new Date(evt.startAt).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
                           -{" "}
-                          {new Date(evt.endAt).toLocaleTimeString([], {
+                          {new Date(evt.endAt).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -444,7 +442,7 @@ export default function EventsClient() {
             </button>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+</RoleLayout>
   );
 }

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { notifyEquipmentIssued } from "./notification.service";
 import connectToDatabase from "@/lib/mongodb";
 import Equipment, {
   IEquipment,
@@ -358,7 +359,15 @@ export async function requestEquipment({
  * Issues requested equipment to a student.
  * Atomically deducts inventory for each item with concurrency protection.
  */
-export async function issueEquipment({
+export async function issueEquipment(
+  params: IssueEquipmentParams
+): Promise<IEquipmentCheckout> {
+  const checkout = await issueEquipmentInternal(params);
+  await notifyEquipmentIssued(checkout);
+  return checkout;
+}
+
+async function issueEquipmentInternal({
   checkoutId,
   managerId,
 }: IssueEquipmentParams): Promise<IEquipmentCheckout> {
@@ -677,7 +686,11 @@ export async function getStudentCheckouts(userId: string) {
   const checkouts = await EquipmentCheckout.find({
     user: new mongoose.Types.ObjectId(userId),
   })
-    .populate("booking", "bookingDate startTime endTime facility status")
+    .populate({
+      path: "booking",
+      select: "bookingDate startTime endTime startAt endAt facility status",
+      populate: { path: "facility", select: "name sportType" },
+    })
     .populate("items.equipment", "name category")
     .populate("equipment", "name category")
     .populate("issuedBy", "name")

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { notifyWaitlistJoined, notifyWaitlistPromoted } from "./notification.service";
 import connectToDatabase from "@/lib/mongodb";
 import Booking, { IBooking, AttendanceStatus } from "@/models/Booking";
 import Facility, { IFacility } from "@/models/Facility";
@@ -211,6 +212,7 @@ export async function joinWaitlist({
       position: nextPosition,
     });
 
+    await notifyWaitlistJoined(entry);
     return entry;
   } catch (err: unknown) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -380,6 +382,7 @@ export async function promoteNextWaitlistUser({
 
       candidate.status = "PROMOTED";
       await candidate.save();
+      await notifyWaitlistPromoted(createdBooking._id.toString(), candidateUserId);
 
       return {
         promoted: true,

@@ -28,7 +28,7 @@ export default async function HomePage() {
 
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight sm:leading-none mb-6">
             Own the Night.{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-lime-300 via-lime-400 to-emerald-500 bg-clip-text text-transparent">
               Play Any Hour.
             </span>
           </h1>

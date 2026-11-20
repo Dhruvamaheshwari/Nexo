@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { notifyMaintenanceScheduled } from "./notification.service";
 import connectToDatabase from "@/lib/mongodb";
 import Maintenance, {
   IMaintenance,
@@ -69,7 +70,15 @@ export interface GetMaintenanceListParams {
  * Enforces facility locking, checks for maintenance overlaps, and detects booking conflicts.
  * Never silently cancels conflicting bookings.
  */
-export async function createMaintenance({
+export async function createMaintenance(
+  params: CreateMaintenanceParams
+): Promise<IMaintenance> {
+  const maintenance = await createMaintenanceInternal(params);
+  await notifyMaintenanceScheduled(maintenance);
+  return maintenance;
+}
+
+async function createMaintenanceInternal({
   facilityId,
   startAt,
   endAt,

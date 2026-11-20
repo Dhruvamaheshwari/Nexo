@@ -98,7 +98,7 @@ export default async function FacilityDetailPage({ params }: PageProps) {
         </Link>
 
         {/* Hero Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl">
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span
               className={cn(
@@ -135,7 +135,7 @@ export default async function FacilityDetailPage({ params }: PageProps) {
 
         {/* Specifications Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="rounded-2xl border border-slate-800 bg-[#0d1322] p-5">
+          <div className="rounded-2xl border border-slate-800 bg-[var(--surface)] p-5">
             <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-2">
               <Users className="h-4 w-4 text-lime-400" />
               <span>Court Capacity</span>
@@ -146,7 +146,7 @@ export default async function FacilityDetailPage({ params }: PageProps) {
             <p className="text-[11px] text-slate-500 mt-1">Maximum allowed per booking</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-[#0d1322] p-5">
+          <div className="rounded-2xl border border-slate-800 bg-[var(--surface)] p-5">
             <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-2">
               <Clock className="h-4 w-4 text-lime-400" />
               <span>Slot Duration</span>
@@ -157,7 +157,7 @@ export default async function FacilityDetailPage({ params }: PageProps) {
             <p className="text-[11px] text-slate-500 mt-1">Single reservation length</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-[#0d1322] p-5">
+          <div className="rounded-2xl border border-slate-800 bg-[var(--surface)] p-5">
             <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-2">
               <CalendarCheck className="h-4 w-4 text-lime-400" />
               <span>Operating Hours</span>
@@ -168,7 +168,7 @@ export default async function FacilityDetailPage({ params }: PageProps) {
             <p className="text-[11px] text-slate-500 mt-1">Daily court schedule</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-[#0d1322] p-5">
+          <div className="rounded-2xl border border-slate-800 bg-[var(--surface)] p-5">
             <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-2">
               <Globe className="h-4 w-4 text-lime-400" />
               <span>Timezone</span>

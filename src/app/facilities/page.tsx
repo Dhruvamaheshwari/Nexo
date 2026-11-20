@@ -96,7 +96,7 @@ export default function FacilitiesPage() {
     <DashboardLayout title="Explore Facilities">
       <div className="space-y-8">
         {/* Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-0.5 text-xs font-bold text-lime-400 mb-2">
               <Compass className="h-3 w-3" /> Campus Sports Portfolio
@@ -165,7 +165,7 @@ export default function FacilitiesPage() {
                     "px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 border",
                     isSelected
                       ? "bg-lime-400 text-slate-950 border-lime-400 shadow-md shadow-lime-400/10"
-                      : "bg-[#0d1322] text-slate-400 border-slate-800 hover:bg-slate-900 hover:text-slate-200"
+                      : "bg-[var(--surface)] text-slate-400 border-slate-800 hover:bg-slate-900 hover:text-slate-200"
                   )}
                 >
                   {category.label}
@@ -192,7 +192,7 @@ export default function FacilitiesPage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="animate-pulse rounded-2xl border border-slate-800 bg-[#0d1322] overflow-hidden"
+                className="animate-pulse rounded-2xl border border-slate-800 bg-[var(--surface)] overflow-hidden"
               >
                 <div className="h-44 bg-slate-900" />
                 <div className="p-5 space-y-3">
@@ -206,7 +206,7 @@ export default function FacilitiesPage() {
           </div>
         ) : facilities.length === 0 ? (
           <EmptyState
-            icon={Compass}
+            icon={Compass} art="trophy"
             title="No sports facilities found"
             description={
               searchQuery || locationQuery || selectedCategory !== "ALL"

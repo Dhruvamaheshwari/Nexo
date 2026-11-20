@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Navbar from "@/components/Navbar";
+import RoleLayout from "@/components/dashboard/RoleLayout";
 import {
   Trophy,
   Calendar,
@@ -216,20 +216,18 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col">
-        <Navbar />
-        <main className="flex-1 max-w-5xl w-full mx-auto p-6 flex items-center justify-center">
+      <RoleLayout title="Event Details">
+<div className="min-h-[50vh] flex items-center justify-center">
           <div className="w-10 h-10 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
-        </main>
-      </div>
+        </div>
+</RoleLayout>
     );
   }
 
   if (error || !event) {
     return (
-      <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col">
-        <Navbar />
-        <main className="flex-1 max-w-3xl w-full mx-auto p-6 flex flex-col items-center justify-center text-center">
+      <RoleLayout title="Event Details">
+<div className="min-h-[50vh] flex flex-col items-center justify-center text-center">
           <ShieldAlert className="w-14 h-14 text-rose-500 mb-4" />
           <h2 className="text-xl font-bold text-white mb-2">Event Not Found</h2>
           <p className="text-slate-400 text-sm mb-6">{error || "This event is unavailable."}</p>
@@ -239,8 +237,8 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
           >
             Back to Events
           </Link>
-        </main>
-      </div>
+        </div>
+</RoleLayout>
     );
   }
 
@@ -254,10 +252,8 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
   const isFull = event.registrationCount >= event.participantLimit;
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col">
-      <Navbar />
-
-      <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <RoleLayout title="Event Details">
+<div className="w-full">
         {/* Back Link */}
         <Link
           href="/events"
@@ -271,7 +267,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Main Info (Left 2 cols) */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
               <div className="flex flex-wrap items-center gap-2.5 mb-4">
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30">
                   {event.sportType}
@@ -311,12 +307,12 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
                       })}
                     </p>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      {new Date(event.startAt).toLocaleTimeString([], {
+                      {new Date(event.startAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}{" "}
                       -{" "}
-                      {new Date(event.endAt).toLocaleTimeString([], {
+                      {new Date(event.endAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -344,7 +340,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
             </div>
 
             {/* Rules & Guidelines */}
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl p-6 sm:p-8">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl p-6 sm:p-8">
               <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-amber-400" />
                 Tournament Rules & Guidelines
@@ -359,7 +355,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
             {event.eventType === "TOURNAMENT" &&
               event.tournamentMatches &&
               event.tournamentMatches.length > 0 && (
-                <div className="bg-[#0e1320] border border-slate-800 rounded-3xl p-6 sm:p-8">
+                <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl p-6 sm:p-8">
                   <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-purple-400" />
                     Tournament Matches & Scores
@@ -414,7 +410,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
 
           {/* Right Column: Registration Card & Organizer info */}
           <div className="space-y-6">
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
               <h3 className="text-lg font-bold text-white mb-4">
                 Registration Status
               </h3>
@@ -445,13 +441,13 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
                 <div className="flex justify-between text-slate-400">
                   <span>Registration Opens:</span>
                   <span className="text-slate-200">
-                    {new Date(event.registrationStartAt).toLocaleDateString()}
+                    {new Date(event.registrationStartAt).toLocaleDateString("en-US")}
                   </span>
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <span>Registration Closes:</span>
                   <span className="text-slate-200">
-                    {new Date(event.registrationEndAt).toLocaleDateString()}
+                    {new Date(event.registrationEndAt).toLocaleDateString("en-US")}
                   </span>
                 </div>
               </div>
@@ -613,7 +609,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
             </div>
 
             {/* Organizer Card */}
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl p-6">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl p-6">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
                 Event Organizer
               </h4>
@@ -633,7 +629,7 @@ export default function EventDetailClient({ eventId }: { eventId: string }) {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+</RoleLayout>
   );
 }

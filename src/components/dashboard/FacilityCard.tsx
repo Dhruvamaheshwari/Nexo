@@ -1,5 +1,6 @@
 "use client";
 
+import SportArt from "@/components/illustrations/SportArt";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -85,23 +86,13 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
 
   return (
     <>
-      <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800/80 bg-[#0d1322] transition-all hover:border-slate-700 hover:shadow-xl hover:shadow-black/40">
+      <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800/80 bg-[var(--surface)] transition-all hover:border-slate-700 hover:shadow-xl hover:shadow-black/40">
         <div>
           {/* Card Image / Visual Header */}
           <div className="relative h-44 w-full bg-slate-900 overflow-hidden flex items-center justify-center">
             {/* Visual gradient overlay with sports pattern */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0d1322] via-[#0d1322]/40 to-transparent z-10" />
-            <div className="text-5xl opacity-40 group-hover:scale-110 transition-transform duration-300 select-none">
-              {facility.sportType === "BADMINTON" && "🏸"}
-              {facility.sportType === "BASKETBALL" && "🏀"}
-              {facility.sportType === "FOOTBALL" && "⚽"}
-              {facility.sportType === "CRICKET" && "🏏"}
-              {facility.sportType === "TENNIS" && "🎾"}
-              {facility.sportType === "GYM" && "🏋️"}
-              {!["BADMINTON", "BASKETBALL", "FOOTBALL", "CRICKET", "TENNIS", "GYM"].includes(
-                facility.sportType
-              ) && "🏟️"}
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)]/70 via-transparent to-transparent z-10" />
+            <SportArt sport={facility.sportType} className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" />
 
             {/* Top status & sport tags */}
             <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between">
@@ -187,7 +178,7 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
       {/* Details Modal */}
       {detailsOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
             <button
               onClick={() => setDetailsOpen(false)}
               className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white"

@@ -1,5 +1,6 @@
 "use client";
 
+import { TeacherHero } from "@/components/illustrations/HeroIllustrations";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TeacherDashboardLayout from "@/components/dashboard/TeacherDashboardLayout";
@@ -416,7 +417,7 @@ export default function TeacherDashboardClient({
         {activeTab === "overview" && (
           <div className="space-y-8">
             {/* Faculty Welcome Hero */}
-            <div className="relative overflow-hidden rounded-3xl border border-purple-900/50 bg-gradient-to-r from-[#17122b] via-[#120d24] to-[#0a0814] p-6 sm:p-8 shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl border border-purple-900/50 bg-gradient-to-r from-[var(--surface)] via-[var(--surface)] to-[var(--app-bg)] p-6 sm:p-8 shadow-2xl">
               <div className="absolute right-0 top-0 -translate-y-12 translate-x-12 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl pointer-events-none" />
 
               <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -425,12 +426,14 @@ export default function TeacherDashboardClient({
                     <Sparkles className="h-3 w-3 text-purple-400" /> Faculty Sports Portal Active
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                    Welcome, Professor {teacher.name}! 👨‍🏫
+                    Welcome, Professor {teacher.name}!
                   </h2>
                   <p className="mt-2 text-xs sm:text-sm text-purple-200/70 leading-relaxed">
                     Organize student athletic tournaments, schedule coaching sessions, track student participation attendance, and inspect facility availability.
                   </p>
                 </div>
+
+                <TeacherHero className="hidden lg:block w-64 xl:w-72 shrink-0 animate-float -my-4" />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <button
@@ -499,7 +502,7 @@ export default function TeacherDashboardClient({
             {/* Upcoming Activities & Recent Student Bookings Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Upcoming Activities */}
-              <div className="rounded-2xl border border-purple-900/40 bg-[#120f21]/80 p-6 space-y-4">
+              <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)]/80 p-6 space-y-4">
                 <div className="flex items-center justify-between border-b border-purple-900/40 pb-3">
                   <h3 className="text-sm font-bold uppercase tracking-wider text-purple-300 flex items-center gap-2">
                     <Trophy className="h-4 w-4 text-purple-400" /> Upcoming Sports Activities
@@ -522,7 +525,7 @@ export default function TeacherDashboardClient({
                         <div>
                           <h4 className="text-sm font-bold text-white">{act.title}</h4>
                           <p className="text-xs text-purple-300/70 mt-0.5">
-                            {act.facility?.name} • {new Date(act.startAt).toLocaleDateString()}
+                            {act.facility?.name} • {new Date(act.startAt).toLocaleDateString("en-US")}
                           </p>
                         </div>
                         <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30">
@@ -539,7 +542,7 @@ export default function TeacherDashboardClient({
               </div>
 
               {/* Recent Student Bookings */}
-              <div className="rounded-2xl border border-purple-900/40 bg-[#120f21]/80 p-6 space-y-4">
+              <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)]/80 p-6 space-y-4">
                 <div className="flex items-center justify-between border-b border-purple-900/40 pb-3">
                   <h3 className="text-sm font-bold uppercase tracking-wider text-purple-300 flex items-center gap-2">
                     <Users className="h-4 w-4 text-indigo-400" /> Recent Student Bookings
@@ -657,7 +660,7 @@ export default function TeacherDashboardClient({
                   return (
                     <div
                       key={act._id}
-                      className="rounded-2xl border border-purple-900/40 bg-[#120f21] p-5 flex flex-col justify-between space-y-4 shadow-lg hover:border-purple-500/40 transition-all"
+                      className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] p-5 flex flex-col justify-between space-y-4 shadow-lg hover:border-purple-500/40 transition-all"
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -690,7 +693,7 @@ export default function TeacherDashboardClient({
                           <div className="flex items-center gap-2">
                             <CalendarDays className="h-3.5 w-3.5 text-purple-400" />
                             <span>
-                              {new Date(act.startAt).toLocaleString([], {
+                              {new Date(act.startAt).toLocaleString("en-US", {
                                 month: "short",
                                 day: "numeric",
                                 hour: "2-digit",
@@ -808,7 +811,7 @@ export default function TeacherDashboardClient({
             </div>
 
             {/* Bookings Table */}
-            <div className="rounded-2xl border border-purple-900/40 bg-[#120f21] overflow-hidden">
+            <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="bg-purple-950/60 border-b border-purple-900/50 text-purple-300 font-bold uppercase tracking-wider">
@@ -843,7 +846,7 @@ export default function TeacherDashboardClient({
                             </span>
                           </td>
                           <td className="p-4">
-                            <div>{new Date(b.bookingDate).toLocaleDateString()}</div>
+                            <div>{new Date(b.bookingDate).toLocaleDateString("en-US")}</div>
                             <div className="text-[11px] text-slate-500">
                               {b.startTime} - {b.endTime}
                             </div>
@@ -924,7 +927,7 @@ export default function TeacherDashboardClient({
                   .filter((a) => a.createdBy?._id === teacher.id)
                   .map((a) => (
                     <option key={a._id} value={a._id}>
-                      {a.title} ({new Date(a.startAt).toLocaleDateString()}) -{" "}
+                      {a.title} ({new Date(a.startAt).toLocaleDateString("en-US")}) -{" "}
                       {a.participants?.length || 0} participants
                     </option>
                   ))}
@@ -950,7 +953,7 @@ export default function TeacherDashboardClient({
 
             {/* Attendance Participant List */}
             {selectedAttendanceActivityId ? (
-              <div className="rounded-2xl border border-purple-900/40 bg-[#120f21] p-6 space-y-4">
+              <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] p-6 space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-purple-900/40">
                   <h3 className="text-sm font-bold text-white">Registered Students</h3>
                   <div className="flex items-center gap-2">
@@ -1118,7 +1121,7 @@ export default function TeacherDashboardClient({
             ) : scheduleData ? (
               <div className="space-y-6">
                 {/* Facility Info Card */}
-                <div className="p-5 rounded-2xl border border-purple-900/40 bg-[#120f21] flex flex-wrap items-center justify-between gap-4">
+                <div className="p-5 rounded-2xl border border-purple-900/40 bg-[var(--surface)] flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <h3 className="text-base font-bold text-white">{scheduleData.facility?.name}</h3>
                     <p className="text-xs text-purple-300/70">
@@ -1139,7 +1142,7 @@ export default function TeacherDashboardClient({
                 {/* Timeline Sections */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Confirmed Bookings */}
-                  <div className="rounded-2xl border border-purple-900/40 bg-[#120f21] p-5 space-y-3">
+                  <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] p-5 space-y-3">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center justify-between">
                       <span>Reserved Time Slots ({scheduleData.bookings?.length || 0})</span>
                       <span className="text-[10px] text-slate-500 font-normal">Privacy Protected</span>
@@ -1167,7 +1170,7 @@ export default function TeacherDashboardClient({
                   </div>
 
                   {/* Scheduled Maintenance */}
-                  <div className="rounded-2xl border border-purple-900/40 bg-[#120f21] p-5 space-y-3">
+                  <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] p-5 space-y-3">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
                       Maintenance Windows ({scheduleData.maintenance?.length || 0})
                     </h4>
@@ -1181,8 +1184,8 @@ export default function TeacherDashboardClient({
                           >
                             <div className="font-bold text-amber-300">{m.reason}</div>
                             <div className="text-[11px] text-slate-400">
-                              {new Date(m.startAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} -{" "}
-                              {new Date(m.endAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                              {new Date(m.startAt).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })} -{" "}
+                              {new Date(m.endAt).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
                             </div>
                           </div>
                         ))}
@@ -1193,7 +1196,7 @@ export default function TeacherDashboardClient({
                   </div>
 
                   {/* Sports Activities */}
-                  <div className="rounded-2xl border border-purple-900/40 bg-[#120f21] p-5 space-y-3">
+                  <div className="rounded-2xl border border-purple-900/40 bg-[var(--surface)] p-5 space-y-3">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300">
                       Sports Activities ({scheduleData.activities?.length || 0})
                     </h4>
@@ -1256,7 +1259,7 @@ export default function TeacherDashboardClient({
                 {teacherReports.map((r) => (
                   <div
                     key={r._id}
-                    className="p-5 rounded-2xl border border-purple-900/40 bg-[#120f21] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                    className="p-5 rounded-2xl border border-purple-900/40 bg-[var(--surface)] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                   >
                     <div className="space-y-1 max-w-xl">
                       <div className="flex items-center gap-2">
@@ -1276,7 +1279,7 @@ export default function TeacherDashboardClient({
                       <h4 className="text-sm font-bold text-white">{r.title}</h4>
                       <p className="text-xs text-slate-400">{r.description}</p>
                       <p className="text-[11px] text-purple-300/60 pt-1">
-                        Reported on {new Date(r.createdAt).toLocaleDateString()}
+                        Reported on {new Date(r.createdAt).toLocaleDateString("en-US")}
                         {r.facility?.name ? ` • Facility: ${r.facility.name}` : ""}
                         {r.equipment?.name ? ` • Equipment: ${r.equipment.name}` : ""}
                       </p>
@@ -1316,7 +1319,7 @@ export default function TeacherDashboardClient({
       {/* ==================================================== */}
       {showCreateActivityModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-2xl border border-purple-900/60 bg-[#141026] p-6 space-y-5 shadow-2xl">
+          <div className="w-full max-w-lg rounded-2xl border border-purple-900/60 bg-[var(--surface)] p-6 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between border-b border-purple-900/40 pb-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Trophy className="h-5 w-5 text-purple-400" /> Create Sports Activity
@@ -1502,7 +1505,7 @@ export default function TeacherDashboardClient({
       {/* ==================================================== */}
       {showCreateReportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-2xl border border-purple-900/60 bg-[#141026] p-6 space-y-5 shadow-2xl">
+          <div className="w-full max-w-lg rounded-2xl border border-purple-900/60 bg-[var(--surface)] p-6 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between border-b border-purple-900/40 pb-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-amber-400" /> Report Facility / Equipment Damage
@@ -1662,7 +1665,7 @@ export default function TeacherDashboardClient({
       {/* ==================================================== */}
       {selectedBookingDetails && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-purple-900/60 bg-[#141026] p-6 space-y-4 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl border border-purple-900/60 bg-[var(--surface)] p-6 space-y-4 shadow-2xl">
             <div className="flex items-center justify-between border-b border-purple-900/40 pb-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Users className="h-5 w-5 text-indigo-400" /> Booking Details

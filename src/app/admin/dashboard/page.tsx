@@ -8,7 +8,8 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboardPage() {
   const user = await requireRole(["ADMIN"]);
 
-  const initialData = await getAdminAnalytics({ period: "30d" });
+  // Serialize so Mongo ObjectIds/Dates become plain values for the client component.
+  const initialData = JSON.parse(JSON.stringify(await getAdminAnalytics({ period: "30d" })));
 
   return (
     <div className="min-h-screen flex flex-col bg-zinc-950 text-zinc-100">

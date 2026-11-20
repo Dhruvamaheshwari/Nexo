@@ -1,4 +1,5 @@
 import { requireRole } from "@/lib/auth-utils";
+import { StudentHero } from "@/components/illustrations/HeroIllustrations";
 import connectToDatabase from "@/lib/mongodb";
 import Facility, { IFacility } from "@/models/Facility";
 import Booking, { IBooking } from "@/models/Booking";
@@ -89,7 +90,7 @@ export default async function StudentDashboardPage() {
     <DashboardLayout title="Student Overview">
       <div className="space-y-8">
         {/* Personalized Student Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-r from-[#0d1322] via-[#0b101d] to-[#080c14] p-6 sm:p-8 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-r from-[var(--surface)] via-[var(--app-bg)] to-[var(--app-bg)] p-6 sm:p-8 shadow-2xl">
           <div className="absolute right-0 top-0 -translate-y-12 translate-x-12 h-64 w-64 rounded-full bg-lime-400/10 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -98,12 +99,14 @@ export default async function StudentDashboardPage() {
                 <Zap className="h-3 w-3 fill-lime-400" /> Student Sports Access Active
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                Welcome back, {user.name}! 🏸
+                Welcome back, {user.name}!
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-slate-400 leading-relaxed">
                 Explore campus courts, check live slot availability, manage your match reservations, and checkout tournament gear.
               </p>
             </div>
+
+            <StudentHero className="hidden lg:block w-64 xl:w-72 shrink-0 animate-float -my-4" />
 
             <div className="flex flex-wrap items-center gap-3">
               <Link
@@ -246,6 +249,7 @@ export default async function StudentDashboardPage() {
               actionLabel="Book a Court Now"
               actionHref="/facilities"
               icon={CalendarDays}
+              art="calendar"
             />
           )}
         </div>

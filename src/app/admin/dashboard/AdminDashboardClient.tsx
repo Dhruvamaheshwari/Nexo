@@ -151,8 +151,8 @@ export default function AdminDashboardClient({
               </span>
               <span className="text-xs text-zinc-400">• MongoDB Synchronized</span>
               <span className="text-xs text-zinc-500">
-                Range: {new Date(data.startDate).toLocaleDateString()} –{" "}
-                {new Date(data.endDate).toLocaleDateString()}
+                Range: {new Date(data.startDate).toLocaleDateString("en-US")} –{" "}
+                {new Date(data.endDate).toLocaleDateString("en-US")}
               </span>
             </div>
             <h1 className="text-3xl font-black text-white tracking-tight">
@@ -427,38 +427,38 @@ export default function AdminDashboardClient({
                       <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#818CF8" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#7C3AED" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorCancelled" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.3} />
                       <stop offset="95%" stopColor="#F43F5E" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272A" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--line)" />
                   <XAxis
                     dataKey="date"
-                    stroke="#71717A"
+                    stroke="var(--ink-muted)"
                     fontSize={11}
                     tickFormatter={(val) => {
                       const d = new Date(val);
                       return `${d.getMonth() + 1}/${d.getDate()}`;
                     }}
                   />
-                  <YAxis stroke="#71717A" fontSize={11} allowDecimals={false} />
+                  <YAxis stroke="var(--ink-muted)" fontSize={11} allowDecimals={false} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#18181B",
-                      borderColor: "#27272A",
+                      backgroundColor: "var(--surface)",
+                      borderColor: "var(--line)",
                       borderRadius: "12px",
-                      color: "#F4F4F5",
+                      color: "var(--ink)",
                       fontSize: "12px",
                     }}
                   />
                   <Area
                     type="monotone"
                     dataKey="total"
-                    stroke="#818CF8"
+                    stroke="#7C3AED"
                     strokeWidth={2}
                     fillOpacity={1}
                     fill="url(#colorTotal)"
@@ -521,17 +521,17 @@ export default function AdminDashboardClient({
                       <Cell
                         key={`cell-${index}`}
                         fill={PIE_COLORS[index % PIE_COLORS.length]}
-                        stroke="#18181B"
+                        stroke="var(--surface)"
                         strokeWidth={2}
                       />
                     ))}
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#18181B",
-                      borderColor: "#27272A",
+                      backgroundColor: "var(--surface)",
+                      borderColor: "var(--line)",
                       borderRadius: "12px",
-                      color: "#F4F4F5",
+                      color: "var(--ink)",
                       fontSize: "12px",
                     }}
                   />
@@ -588,27 +588,27 @@ export default function AdminDashboardClient({
                   data={booking.popularSports}
                   margin={{ top: 10, right: 10, left: -20, bottom: 20 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272A" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--line)" />
                   <XAxis
                     dataKey="sportType"
-                    stroke="#71717A"
+                    stroke="var(--ink-muted)"
                     fontSize={11}
                     angle={-20}
                     textAnchor="end"
                   />
-                  <YAxis stroke="#71717A" fontSize={11} allowDecimals={false} />
+                  <YAxis stroke="var(--ink-muted)" fontSize={11} allowDecimals={false} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#18181B",
-                      borderColor: "#27272A",
+                      backgroundColor: "var(--surface)",
+                      borderColor: "var(--line)",
                       borderRadius: "12px",
-                      color: "#F4F4F5",
+                      color: "var(--ink)",
                       fontSize: "12px",
                     }}
                   />
                   <Bar
                     dataKey="count"
-                    fill="#10B981"
+                    fill="#7C3AED"
                     radius={[6, 6, 0, 0]}
                     name="Bookings"
                   />
@@ -918,14 +918,14 @@ export default function AdminDashboardClient({
                       </td>
                       <td className="py-3.5 px-4 text-zinc-300">{m.reason}</td>
                       <td className="py-3.5 px-4 text-zinc-400 font-mono text-[11px]">
-                        {new Date(m.startAt).toLocaleString([], {
+                        {new Date(m.startAt).toLocaleString("en-US", {
                           month: "short",
                           day: "numeric",
                           hour: "2-digit",
                           minute: "2-digit",
                         })}{" "}
                         –{" "}
-                        {new Date(m.endAt).toLocaleString([], {
+                        {new Date(m.endAt).toLocaleString("en-US", {
                           month: "short",
                           day: "numeric",
                           hour: "2-digit",
@@ -995,7 +995,7 @@ export default function AdminDashboardClient({
                     </div>
                   </div>
                   <div className="text-right text-[11px] text-zinc-500 font-mono">
-                    {new Date(act.timestamp).toLocaleString([], {
+                    {new Date(act.timestamp).toLocaleString("en-US", {
                       month: "short",
                       day: "numeric",
                       hour: "2-digit",

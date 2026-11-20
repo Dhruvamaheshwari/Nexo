@@ -122,7 +122,7 @@ export default function AdminPolicyPage() {
       <Navbar />
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Header Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-0.5 text-xs font-bold text-lime-400 mb-2">
@@ -160,14 +160,14 @@ export default function AdminPolicyPage() {
         )}
 
         {loading ? (
-          <div className="p-12 text-center rounded-3xl border border-zinc-800 bg-[#0d1322] flex flex-col items-center justify-center gap-3">
+          <div className="p-12 text-center rounded-3xl border border-zinc-800 bg-[var(--surface)] flex flex-col items-center justify-center gap-3">
             <RefreshCw className="h-6 w-6 animate-spin text-lime-400" />
             <span className="text-xs text-zinc-400">Loading current policy parameters...</span>
           </div>
         ) : (
           <form onSubmit={handleSave} className="space-y-6">
             {/* Section 1: Quotas and Duration Limits */}
-            <div className="rounded-3xl border border-zinc-800 bg-[#0d1322] p-6 sm:p-8 space-y-6">
+            <div className="rounded-3xl border border-zinc-800 bg-[var(--surface)] p-6 sm:p-8 space-y-6">
               <div className="flex items-center gap-2 text-lime-400 text-sm font-bold uppercase tracking-wider border-b border-zinc-800 pb-3">
                 <Calendar className="h-4 w-4" /> Quotas & Reservation Windows
               </div>
@@ -245,7 +245,7 @@ export default function AdminPolicyPage() {
             </div>
 
             {/* Section 2: Prime-Time Fair Allocation */}
-            <div className="rounded-3xl border border-zinc-800 bg-[#0d1322] p-6 sm:p-8 space-y-6">
+            <div className="rounded-3xl border border-zinc-800 bg-[var(--surface)] p-6 sm:p-8 space-y-6">
               <div className="flex items-center gap-2 text-amber-400 text-sm font-bold uppercase tracking-wider border-b border-zinc-800 pb-3">
                 <Zap className="h-4 w-4" /> Prime-Time Anti-Monopoly Rules
               </div>
@@ -295,7 +295,7 @@ export default function AdminPolicyPage() {
             </div>
 
             {/* Section 3: Feature Toggles (Waiting List & No-Show Tracking) */}
-            <div className="rounded-3xl border border-zinc-800 bg-[#0d1322] p-6 sm:p-8 space-y-6">
+            <div className="rounded-3xl border border-zinc-800 bg-[var(--surface)] p-6 sm:p-8 space-y-6">
               <div className="flex items-center gap-2 text-cyan-400 text-sm font-bold uppercase tracking-wider border-b border-zinc-800 pb-3">
                 <ListOrdered className="h-4 w-4" /> Feature Toggles & Automation
               </div>

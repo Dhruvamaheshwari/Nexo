@@ -452,7 +452,7 @@ export default function AdminFacilitiesPage() {
       {/* Modal: Add / Edit Facility */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-2xl rounded-3xl border border-zinc-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl relative my-8">
+          <div className="w-full max-w-2xl rounded-3xl border border-zinc-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl relative my-8">
             <button
               onClick={() => setModalOpen(false)}
               className="absolute top-5 right-5 p-2 rounded-xl text-zinc-400 hover:bg-zinc-800 hover:text-white"

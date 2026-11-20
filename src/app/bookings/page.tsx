@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import BookingCard, { BookingItem } from "@/components/dashboard/BookingCard";
 import EmptyState from "@/components/dashboard/EmptyState";
@@ -45,8 +46,42 @@ interface WaitlistRecord {
   createdAt: string;
 }
 
+type BookingTab = "ALL" | "UPCOMING" | "COMPLETED" | "CANCELLED" | "WAITLIST" | "REVIEWS";
+const TAB_LABELS: Record<BookingTab, string> = {
+  ALL: "",
+  UPCOMING: "upcoming ",
+  COMPLETED: "completed ",
+  CANCELLED: "cancelled ",
+  WAITLIST: "waitlist ",
+  REVIEWS: "",
+};
+
 export default function BookingsPage() {
-  const [activeTab, setActiveTab] = useState<"ALL" | "UPCOMING" | "COMPLETED" | "CANCELLED" | "WAITLIST" | "REVIEWS">("ALL");
+  return (
+    <Suspense fallback={null}>
+      <BookingsContent />
+    </Suspense>
+  );
+}
+
+function BookingsContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTab, setActiveTabState] = useState<BookingTab>(
+    tabParam?.toUpperCase() === "WAITLIST" ? "WAITLIST" : "ALL"
+  );
+  // Keep the tab in sync when the sidebar link (?tab=waitlist) changes the URL.
+  const [prevTabParam, setPrevTabParam] = useState(tabParam);
+  if (tabParam !== prevTabParam) {
+    setPrevTabParam(tabParam);
+    setActiveTabState(tabParam?.toUpperCase() === "WAITLIST" ? "WAITLIST" : "ALL");
+  }
+  const setActiveTab = (tab: BookingTab) => {
+    setActiveTabState(tab);
+    // Reflect waitlist tab in the URL so the sidebar highlight stays correct.
+    window.history.replaceState(null, "", tab === "WAITLIST" ? "/bookings?tab=waitlist" : "/bookings");
+    setPrevTabParam(tab === "WAITLIST" ? "waitlist" : null);
+  };
   const [bookings, setBookings] = useState<BookingItem[]>([]);
   const [waitlistEntries, setWaitlistEntries] = useState<WaitlistRecord[]>([]);
   const [quota, setQuota] = useState<QuotaInfo>({ activeCount: 0, maxActive: 2, remaining: 2 });
@@ -214,7 +249,7 @@ export default function BookingsPage() {
     <DashboardLayout title="My Bookings">
       <div className="space-y-8">
         {/* Header Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="max-w-xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-0.5 text-xs font-bold text-lime-400 mb-2">
@@ -261,7 +296,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0",
               activeTab === "ALL"
                 ? "bg-lime-400 text-slate-950 border-lime-400 shadow-md shadow-lime-400/10"
-                : "bg-[#0d1322] text-slate-400 border-slate-800 hover:text-white"
+                : "bg-[var(--surface)] text-slate-400 border-slate-800 hover:text-white"
             )}
           >
             All Bookings
@@ -272,7 +307,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0",
               activeTab === "UPCOMING"
                 ? "bg-lime-400 text-slate-950 border-lime-400 shadow-md shadow-lime-400/10"
-                : "bg-[#0d1322] text-slate-400 border-slate-800 hover:text-white"
+                : "bg-[var(--surface)] text-slate-400 border-slate-800 hover:text-white"
             )}
           >
             Upcoming
@@ -283,7 +318,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0",
               activeTab === "COMPLETED"
                 ? "bg-lime-400 text-slate-950 border-lime-400 shadow-md shadow-lime-400/10"
-                : "bg-[#0d1322] text-slate-400 border-slate-800 hover:text-white"
+                : "bg-[var(--surface)] text-slate-400 border-slate-800 hover:text-white"
             )}
           >
             Completed
@@ -294,7 +329,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0",
               activeTab === "CANCELLED"
                 ? "bg-lime-400 text-slate-950 border-lime-400 shadow-md shadow-lime-400/10"
-                : "bg-[#0d1322] text-slate-400 border-slate-800 hover:text-white"
+                : "bg-[var(--surface)] text-slate-400 border-slate-800 hover:text-white"
             )}
           >
             Cancelled
@@ -305,7 +340,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0 flex items-center gap-1.5",
               activeTab === "WAITLIST"
                 ? "bg-cyan-400 text-slate-950 border-cyan-400 shadow-md shadow-cyan-400/10"
-                : "bg-[#0d1322] text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
+                : "bg-[var(--surface)] text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
             )}
           >
             <ListOrdered className="h-3.5 w-3.5" /> Waiting List ({waitlistEntries.length})
@@ -316,7 +351,7 @@ export default function BookingsPage() {
               "px-4 py-2 rounded-xl text-xs font-bold transition-all border shrink-0 flex items-center gap-1.5",
               activeTab === "REVIEWS"
                 ? "bg-amber-400 text-slate-950 border-amber-400 shadow-md shadow-amber-400/10"
-                : "bg-[#0d1322] text-amber-400 border-amber-500/30 hover:border-amber-400"
+                : "bg-[var(--surface)] text-amber-400 border-amber-500/30 hover:border-amber-400"
             )}
           >
             <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> Reviews & Ratings
@@ -340,7 +375,7 @@ export default function BookingsPage() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-48 rounded-2xl border border-slate-800 bg-[#0d1322] animate-pulse p-5 space-y-3"
+                className="h-48 rounded-2xl border border-slate-800 bg-[var(--surface)] animate-pulse p-5 space-y-3"
               >
                 <div className="h-4 bg-slate-800 rounded w-1/3" />
                 <div className="h-6 bg-slate-800 rounded w-3/4" />
@@ -351,7 +386,7 @@ export default function BookingsPage() {
         ) : activeTab === "WAITLIST" ? (
           waitlistEntries.length === 0 ? (
             <EmptyState
-              icon={ListOrdered}
+              icon={ListOrdered} art="list"
               title="You are not on any waiting lists"
               description="When a court slot is fully booked, you can join the waiting list from the facility schedule page."
               actionHref="/facilities"
@@ -367,7 +402,7 @@ export default function BookingsPage() {
                 return (
                   <div
                     key={entry._id}
-                    className="overflow-hidden rounded-2xl border border-slate-800/80 bg-[#0d1322] p-5 shadow-lg flex flex-col justify-between"
+                    className="overflow-hidden rounded-2xl border border-slate-800/80 bg-[var(--surface)] p-5 shadow-lg flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
@@ -465,7 +500,7 @@ export default function BookingsPage() {
                   {eligibleReviewBookings.map((b) => (
                     <div
                       key={b._id}
-                      className="p-5 rounded-2xl border border-slate-800 bg-[#0d1322] space-y-3 flex flex-col justify-between"
+                      className="p-5 rounded-2xl border border-slate-800 bg-[var(--surface)] space-y-3 flex flex-col justify-between"
                     >
                       <div>
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-lime-400/10 text-lime-400 border border-lime-400/20 uppercase">
@@ -475,7 +510,7 @@ export default function BookingsPage() {
                           {b.facility?.name}
                         </h4>
                         <p className="text-xs text-slate-400 mt-1">
-                          Played on {new Date(b.bookingDate).toLocaleDateString()} ({b.startTime} - {b.endTime})
+                          Played on {new Date(b.bookingDate).toLocaleDateString("en-US")} ({b.startTime} - {b.endTime})
                         </p>
                       </div>
 
@@ -494,7 +529,7 @@ export default function BookingsPage() {
                   ))}
                 </div>
               ) : (
-                <div className="p-6 rounded-2xl border border-slate-800 bg-[#0d1322]/60 text-center text-xs text-slate-400">
+                <div className="p-6 rounded-2xl border border-slate-800 bg-[var(--surface)]/60 text-center text-xs text-slate-400">
                   No completed sessions awaiting your review. Completed bookings will appear here automatically.
                 </div>
               )}
@@ -511,7 +546,7 @@ export default function BookingsPage() {
                   {myReviews.map((r) => (
                     <div
                       key={r._id}
-                      className="p-5 rounded-2xl border border-slate-800 bg-[#0b101d] space-y-3"
+                      className="p-5 rounded-2xl border border-slate-800 bg-[var(--app-bg)] space-y-3"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-sm text-white">
@@ -567,8 +602,8 @@ export default function BookingsPage() {
           </div>
         ) : bookings.length === 0 ? (
           <EmptyState
-            icon={CalendarDays}
-            title={`No ${activeTab.toLowerCase()} bookings found`}
+            icon={CalendarDays} art="calendar"
+            title={`No ${TAB_LABELS[activeTab]}bookings found`}
             description="You don't have any reservations in this filter category."
             actionHref="/facilities"
             actionLabel="Discover Facilities"
@@ -589,7 +624,7 @@ export default function BookingsPage() {
       {/* Cancellation Modal */}
       {cancellingBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-md rounded-3xl border border-slate-800 bg-[#0d1322] p-6 shadow-2xl relative">
+          <div className="w-full max-w-md rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 shadow-2xl relative">
             <button
               onClick={() => {
                 if (!cancellingInProgress) {

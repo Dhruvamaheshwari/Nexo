@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { publicErrorMessage } from "@/lib/api-errors";
 import { validateApiAuth } from "@/lib/auth-utils";
 import { getInventoryStats } from "@/services/equipment.service";
 
@@ -18,6 +19,6 @@ export async function GET() {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Internal server error";
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }

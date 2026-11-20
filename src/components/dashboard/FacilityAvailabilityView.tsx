@@ -265,7 +265,7 @@ export default function FacilityAvailabilityView({
   };
 
   return (
-    <div className="rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl space-y-6">
+    <div className="rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl space-y-6">
       {/* Header and Date Selector */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
         <div>
@@ -435,7 +435,7 @@ export default function FacilityAvailabilityView({
       {/* Booking Confirmation Modal */}
       {bookingSlot && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl relative">
             <button
               onClick={() => {
                 if (!submittingBooking) {
@@ -564,7 +564,7 @@ export default function FacilityAvailabilityView({
       {/* Join Waiting List Modal */}
       {waitlistSlot && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl relative">
+          <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl relative">
             <button
               onClick={() => {
                 if (!submittingWaitlist) {

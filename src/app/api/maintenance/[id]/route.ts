@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { publicErrorMessage } from "@/lib/api-errors";
 import { validateApiAuth } from "@/lib/auth-utils";
 import { updateMaintenanceSchema } from "@/lib/validations/maintenance";
 import {
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
         { status: 404 }
       );
     }
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }
 
@@ -115,7 +116,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
           { status: 400 }
         );
       default:
-        return NextResponse.json({ status: "error", message }, { status: 500 });
+        return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
     }
   }
 }

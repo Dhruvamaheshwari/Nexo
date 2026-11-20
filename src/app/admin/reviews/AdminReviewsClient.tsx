@@ -272,7 +272,7 @@ export default function AdminReviewsClient({ initialData }: AdminReviewsClientPr
                       </span>
                     </td>
                     <td className="p-4 text-zinc-400">
-                      {new Date(r.createdAt).toLocaleDateString()}
+                      {new Date(r.createdAt).toLocaleDateString("en-US")}
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
@@ -435,7 +435,7 @@ export default function AdminReviewsClient({ initialData }: AdminReviewsClientPr
                     {selectedReview.moderationHistory.map((h: any, idx: number) => (
                       <div key={idx} className="text-[11px] border-l-2 border-zinc-700 pl-2 py-0.5">
                         <span className="text-zinc-400">
-                          {new Date(h.timestamp).toLocaleString()}: Changed from{" "}
+                          {new Date(h.timestamp).toLocaleString("en-US")}: Changed from{" "}
                           <span className="font-bold text-zinc-300">{h.previousStatus}</span> to{" "}
                           <span className="font-bold text-white">{h.newStatus}</span>
                         </span>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { publicErrorMessage } from "@/lib/api-errors";
 import { validateApiAuth } from "@/lib/auth-utils";
 import { updateEquipmentSchema } from "@/lib/validations/equipment";
 import {
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
         { status: 404 }
       );
     }
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }
 
@@ -86,7 +87,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
         { status: 400 }
       );
     }
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }
 
@@ -114,6 +115,6 @@ export async function DELETE(req: NextRequest, { params }: RouteParams) {
         { status: 404 }
       );
     }
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }

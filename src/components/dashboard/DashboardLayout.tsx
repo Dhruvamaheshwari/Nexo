@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import StudentSidebar from "./StudentSidebar";
 import StudentHeader from "./StudentHeader";
 
@@ -13,9 +13,12 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 flex">
+    <div className="min-h-screen bg-[var(--app-bg)] text-slate-100 flex">
       {/* Sidebar */}
-      <StudentSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {/* useSearchParams in the sidebar needs a Suspense boundary for static pages */}
+      <Suspense fallback={<div className="hidden w-72 shrink-0 lg:block" />}>
+        <StudentSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      </Suspense>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">

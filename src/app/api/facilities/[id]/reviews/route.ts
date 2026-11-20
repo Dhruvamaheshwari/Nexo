@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { publicErrorMessage } from "@/lib/api-errors";
 import { getFacilityReviews } from "@/services/review.service";
 import mongoose from "mongoose";
 
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest, context: RouteContext) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Internal server error";
-    return NextResponse.json({ status: "error", message }, { status: 500 });
+    return NextResponse.json({ status: "error", message: publicErrorMessage(message) }, { status: 500 });
   }
 }
 

@@ -32,12 +32,12 @@ export default function DashboardStatCard({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-slate-800/80 bg-[#0d1322]/80 p-5 shadow-lg backdrop-blur-sm transition-all hover:border-slate-700">
+    <div className="relative overflow-hidden group rounded-2xl border border-slate-800/80 bg-gradient-to-br from-[var(--surface)] to-[var(--brand-soft)]/60 p-5 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:border-lime-400/40 hover:shadow-xl">
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
           {title}
         </span>
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-lime-400/10 border border-lime-400/20 text-slate-300 transition-transform group-hover:scale-110">
           <Icon className="h-5 w-5 text-lime-400" />
         </div>
       </div>

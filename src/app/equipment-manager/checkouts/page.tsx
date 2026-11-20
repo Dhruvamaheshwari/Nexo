@@ -389,12 +389,12 @@ export default function EquipmentManagerCheckoutsPage({
                               {checkout.booking.facility?.name}
                             </span>
                             <div className="text-[11px] text-zinc-500">
-                              {new Date(checkout.booking.startAt).toLocaleTimeString([], {
+                              {new Date(checkout.booking.startAt).toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit",
                               })}
                               {" - "}
-                              {new Date(checkout.booking.endAt).toLocaleTimeString([], {
+                              {new Date(checkout.booking.endAt).toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit",
                               })}
@@ -406,13 +406,13 @@ export default function EquipmentManagerCheckoutsPage({
                       </td>
                       <td className="px-5 py-4">
                         <div className={cn("font-bold", isOverdue ? "text-rose-400" : "text-zinc-300")}>
-                          {new Date(checkout.expectedReturnAt).toLocaleTimeString([], {
+                          {new Date(checkout.expectedReturnAt).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
                         </div>
                         <div className="text-[11px] text-zinc-500">
-                          {new Date(checkout.expectedReturnAt).toLocaleDateString([], {
+                          {new Date(checkout.expectedReturnAt).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                           })}
@@ -462,7 +462,7 @@ export default function EquipmentManagerCheckoutsPage({
 
                         {checkout.status === "RETURNED" && (
                           <span className="text-[11px] text-zinc-500">
-                            Processed • {checkout.returnedAt ? new Date(checkout.returnedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Done"}
+                            Processed • {checkout.returnedAt ? new Date(checkout.returnedAt).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : "Done"}
                           </span>
                         )}
                       </td>
@@ -500,7 +500,7 @@ export default function EquipmentManagerCheckoutsPage({
                 <div className="text-zinc-400">
                   Ref: {returningCheckout._id.slice(-6)} • Issued:{" "}
                   {returningCheckout.issuedAt
-                    ? new Date(returningCheckout.issuedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                    ? new Date(returningCheckout.issuedAt).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
                     : "—"}
                 </div>
               </div>

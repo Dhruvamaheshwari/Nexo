@@ -335,7 +335,7 @@ export default function BookingDetailsClient({
                 </p>
                 {booking.cancelledAt && (
                   <p className="text-[11px] text-zinc-400">
-                    Cancelled on {new Date(booking.cancelledAt).toLocaleString()}
+                    Cancelled on {new Date(booking.cancelledAt).toLocaleString("en-US")}
                   </p>
                 )}
               </div>
@@ -357,10 +357,10 @@ export default function BookingDetailsClient({
             {/* Metadata Timestamps */}
             <div className="border-t border-zinc-800 pt-3 text-[11px] text-zinc-500 flex flex-wrap gap-x-6 gap-y-1">
               <span>
-                Created: <strong className="text-zinc-400">{new Date(booking.createdAt).toLocaleString()}</strong>
+                Created: <strong className="text-zinc-400">{new Date(booking.createdAt).toLocaleString("en-US")}</strong>
               </span>
               <span>
-                Last Updated: <strong className="text-zinc-400">{new Date(booking.updatedAt).toLocaleString()}</strong>
+                Last Updated: <strong className="text-zinc-400">{new Date(booking.updatedAt).toLocaleString("en-US")}</strong>
               </span>
             </div>
           </div>

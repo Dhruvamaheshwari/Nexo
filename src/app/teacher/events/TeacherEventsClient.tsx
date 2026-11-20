@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import TeacherDashboardLayout from "@/components/dashboard/TeacherDashboardLayout";
 import {
   Trophy,
   Calendar,
@@ -395,10 +395,8 @@ export default function TeacherEventsClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col">
-      <Navbar />
-
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <TeacherDashboardLayout title="Events & Tournaments" activeTab="events">
+<div className="w-full">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
@@ -425,7 +423,7 @@ export default function TeacherEventsClient({
         </div>
 
         {/* Filters */}
-        <div className="bg-[#0e1320] border border-slate-800 rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-[var(--surface)] border border-slate-800 rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="relative w-full sm:w-72">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
             <input
@@ -467,7 +465,7 @@ export default function TeacherEventsClient({
             ))}
           </div>
         ) : events.length === 0 ? (
-          <div className="p-16 rounded-3xl bg-[#0e1320] border border-slate-800 text-center">
+          <div className="p-16 rounded-3xl bg-[var(--surface)] border border-slate-800 text-center">
             <Trophy className="w-12 h-12 text-slate-600 mx-auto mb-3" />
             <h3 className="text-base font-bold text-white">No events found</h3>
             <p className="text-xs text-slate-400 mt-1 mb-4">
@@ -485,7 +483,7 @@ export default function TeacherEventsClient({
             {events.map((evt) => (
               <div
                 key={evt._id}
-                className="p-5 rounded-2xl bg-[#0d121f] border border-slate-800 hover:border-slate-700 transition-all flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
+                className="p-5 rounded-2xl bg-[var(--surface)] border border-slate-800 hover:border-slate-700 transition-all flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
               >
                 <div className="space-y-1.5 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
@@ -519,8 +517,8 @@ export default function TeacherEventsClient({
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                      {new Date(evt.startAt).toLocaleDateString()} (
-                      {new Date(evt.startAt).toLocaleTimeString([], {
+                      {new Date(evt.startAt).toLocaleDateString("en-US")} (
+                      {new Date(evt.startAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -588,7 +586,7 @@ export default function TeacherEventsClient({
         {/* MODAL: Host / Create Event */}
         {showCreateModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl space-y-6">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl space-y-6">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
@@ -893,7 +891,7 @@ export default function TeacherEventsClient({
         {/* MODAL: Attendance Tracking */}
         {showAttendanceModal && selectedEvent && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] flex flex-col shadow-2xl">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] flex flex-col shadow-2xl">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                 <div>
                   <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -943,7 +941,7 @@ export default function TeacherEventsClient({
                           </div>
                           <div className="text-xs text-slate-400">
                             {reg.user.email} · Registered{" "}
-                            {new Date(reg.registeredAt).toLocaleDateString()}
+                            {new Date(reg.registeredAt).toLocaleDateString("en-US")}
                           </div>
                         </div>
 
@@ -1001,7 +999,7 @@ export default function TeacherEventsClient({
         {/* MODAL: Tournament Matches & Scores */}
         {showMatchesModal && selectedEvent && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="bg-[#0e1320] border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] flex flex-col shadow-2xl">
+            <div className="bg-[var(--surface)] border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] flex flex-col shadow-2xl">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                 <div>
                   <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -1230,7 +1228,7 @@ export default function TeacherEventsClient({
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+</TeacherDashboardLayout>
   );
 }

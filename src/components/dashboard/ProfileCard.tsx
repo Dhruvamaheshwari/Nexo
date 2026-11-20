@@ -1,5 +1,6 @@
 "use client";
 
+import Avatar from "@/components/illustrations/Avatar";
 import { useState } from "react";
 import { User, Mail, Shield, Phone, CheckCircle2, AlertCircle } from "lucide-react";
 
@@ -27,15 +28,13 @@ export default function ProfileCard({ user }: ProfileCardProps) {
   return (
     <div className="space-y-6">
       {/* Profile Header Summary */}
-      <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-400 to-emerald-500 text-slate-950 font-black text-3xl shadow-xl shadow-lime-400/20">
-            {user.name ? user.name.charAt(0).toUpperCase() : "S"}
-          </div>
+          <Avatar name={user.name} size={88} className="shadow-xl ring-4 ring-[var(--brand-soft)]" />
 
           <div className="flex-1 text-center sm:text-left">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-              <h2 className="text-2xl font-black text-white">{user.name || "Student"}</h2>
+              <h2 className="text-2xl font-black text-white">{user.name || "User"}</h2>
               <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-lime-400/10 text-lime-400 border border-lime-400/30">
                 {user.role}
               </span>
@@ -49,7 +48,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
               </div>
               <div className="flex items-center gap-1.5">
                 <Shield className="h-4 w-4 text-lime-400" />
-                <span>Campus Athlete Clearance</span>
+                <span>{user.role === "STUDENT" ? "Campus Athlete Clearance" : "Campus Staff Access"}</span>
               </div>
             </div>
           </div>
@@ -65,8 +64,8 @@ export default function ProfileCard({ user }: ProfileCardProps) {
       )}
 
       {/* Details Form Card */}
-      <div className="rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl">
-        <h3 className="text-base font-bold text-white mb-6">Student Information</h3>
+      <div className="rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl">
+        <h3 className="text-base font-bold text-white mb-6">{user.role === "STUDENT" ? "Student" : "Staff"} Information</h3>
 
         <form onSubmit={handleSave} className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -111,7 +110,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
             {/* Student ID */}
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Student ID / Roll No.
+                {user.role === "STUDENT" ? "Student ID / Roll No." : "Employee ID"}
               </label>
               <input
                 type="text"

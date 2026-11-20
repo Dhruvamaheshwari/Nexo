@@ -510,7 +510,7 @@ export default function UserManagementClient({
                     </td>
                     <td className="py-4 px-4 text-zinc-400 text-[11px]">
                       {u.createdAt
-                        ? new Date(u.createdAt).toLocaleDateString([], {
+                        ? new Date(u.createdAt).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "short",
                             day: "numeric",
@@ -687,7 +687,7 @@ export default function UserManagementClient({
                       )}
                       <span>
                         Joined:{" "}
-                        {new Date(userDetails.user.createdAt).toLocaleDateString()}
+                        {new Date(userDetails.user.createdAt).toLocaleDateString("en-US")}
                       </span>
                     </div>
                   </div>
@@ -746,7 +746,7 @@ export default function UserManagementClient({
                               </span>
                             </div>
                             <div className="text-[11px] text-zinc-400 font-mono">
-                              {new Date(b.startAt).toLocaleString([], {
+                              {new Date(b.startAt).toLocaleString("en-US", {
                                 month: "short",
                                 day: "numeric",
                                 hour: "2-digit",
@@ -794,7 +794,7 @@ export default function UserManagementClient({
                             </div>
                             <div className="text-[11px] text-zinc-400 font-mono">
                               Expected Return:{" "}
-                              {new Date(c.expectedReturnAt).toLocaleDateString()}
+                              {new Date(c.expectedReturnAt).toLocaleDateString("en-US")}
                             </div>
                           </div>
                           <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-zinc-800 text-zinc-300">
@@ -834,7 +834,7 @@ export default function UserManagementClient({
                               </span>
                             </span>
                             <span className="text-[10px] text-zinc-500 font-mono">
-                              {new Date(a.createdAt).toLocaleDateString()}
+                              {new Date(a.createdAt).toLocaleDateString("en-US")}
                             </span>
                           </div>
                           <div className="text-[11px] text-zinc-400 mt-0.5">

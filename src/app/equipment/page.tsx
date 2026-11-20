@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import EmptyState from "@/components/dashboard/EmptyState";
 import {
@@ -109,7 +110,7 @@ export default function EquipmentPage() {
         const [catRes, myRes, bookingsRes] = await Promise.all([
           fetch("/api/equipment?limit=100"),
           fetch("/api/equipment/my"),
-          fetch("/api/bookings"),
+          fetch("/api/bookings/my?filter=UPCOMING&limit=50"),
         ]);
 
         if (!catRes.ok || !myRes.ok) {
@@ -229,7 +230,7 @@ export default function EquipmentPage() {
     <DashboardLayout title="Sports Equipment">
       <div className="space-y-8">
         {/* Banner */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-0.5 text-xs font-bold text-lime-400 mb-2">
@@ -319,7 +320,7 @@ export default function EquipmentPage() {
               <div>
                 {activeCheckouts.length === 0 ? (
                   <EmptyState
-                    icon={PackageCheck}
+                    icon={PackageCheck} art="gear"
                     title="No equipment currently checked out"
                     description="You have no outstanding equipment. When you reserve a court, request rackets, balls, or nets to pick up before your game."
                     actionHref="/facilities"
@@ -335,8 +336,8 @@ export default function EquipmentPage() {
                           checkout.status === "OVERDUE" || checkout.isOverdue
                             ? "border-rose-500/40 bg-rose-950/20"
                             : checkout.status === "ISSUED"
-                            ? "border-emerald-500/30 bg-[#0d1322]"
-                            : "border-amber-500/30 bg-[#0d1322]"
+                            ? "border-emerald-500/30 bg-[var(--surface)]"
+                            : "border-amber-500/30 bg-[var(--surface)]"
                         )}
                       >
                         <div className="flex items-start justify-between mb-4">
@@ -370,7 +371,7 @@ export default function EquipmentPage() {
                               "text-xs font-bold",
                               checkout.status === "OVERDUE" || checkout.isOverdue ? "text-rose-400" : "text-white"
                             )}>
-                              {new Date(checkout.expectedReturnAt).toLocaleTimeString([], {
+                              {new Date(checkout.expectedReturnAt).toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit",
                               })}
@@ -391,17 +392,17 @@ export default function EquipmentPage() {
                             <div className="flex items-center gap-2 text-slate-400">
                               <Clock className="h-3.5 w-3.5 text-slate-500 shrink-0" />
                               <span>
-                                {new Date(checkout.booking.startAt).toLocaleDateString([], {
+                                {new Date(checkout.booking.startAt).toLocaleDateString("en-US", {
                                   month: "short",
                                   day: "numeric",
                                 })}{" "}
                                 •{" "}
-                                {new Date(checkout.booking.startAt).toLocaleTimeString([], {
+                                {new Date(checkout.booking.startAt).toLocaleTimeString("en-US", {
                                   hour: "2-digit",
                                   minute: "2-digit",
                                 })}
                                 {" - "}
-                                {new Date(checkout.booking.endAt).toLocaleTimeString([], {
+                                {new Date(checkout.booking.endAt).toLocaleTimeString("en-US", {
                                   hour: "2-digit",
                                   minute: "2-digit",
                                 })}
@@ -442,7 +443,7 @@ export default function EquipmentPage() {
                   {catalog.map((item) => (
                     <div
                       key={item._id}
-                      className="rounded-2xl border border-slate-800 bg-[#0d1322] p-5 hover:border-slate-700 transition-colors"
+                      className="rounded-2xl border border-slate-800 bg-[var(--surface)] p-5 hover:border-slate-700 transition-colors"
                     >
                       <div className="flex items-center justify-between mb-3">
                         <span className="font-bold text-white text-base">{item.name}</span>
@@ -483,12 +484,12 @@ export default function EquipmentPage() {
               <div>
                 {pastCheckouts.length === 0 ? (
                   <EmptyState
-                    icon={History}
+                    icon={History} art="list"
                     title="No return history yet"
                     description="Records of completed and returned equipment will appear here after you finish your game sessions."
                   />
                 ) : (
-                  <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-[#0d1322]">
+                  <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-[var(--surface)]">
                     <table className="w-full text-left text-xs text-slate-300">
                       <thead className="bg-slate-900/60 uppercase tracking-wider text-slate-400 border-b border-slate-800">
                         <tr>
@@ -523,7 +524,7 @@ export default function EquipmentPage() {
                             </td>
                             <td className="px-5 py-4 text-slate-400">
                               {rec.returnedAt
-                                ? new Date(rec.returnedAt).toLocaleString([], {
+                                ? new Date(rec.returnedAt).toLocaleString("en-US", {
                                     month: "short",
                                     day: "numeric",
                                     hour: "2-digit",
@@ -545,7 +546,7 @@ export default function EquipmentPage() {
         {/* Request Equipment Modal */}
         {requestModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0d1322] p-6 sm:p-8 shadow-2xl relative">
+            <div className="w-full max-w-lg rounded-3xl border border-slate-800 bg-[var(--surface)] p-6 sm:p-8 shadow-2xl relative">
               <button
                 onClick={() => setRequestModalOpen(false)}
                 className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors cursor-pointer"
@@ -568,8 +569,14 @@ export default function EquipmentPage() {
                     <span>No Confirmed Court Bookings Found</span>
                   </div>
                   <p className="text-slate-400">
-                    You must have a confirmed court reservation before requesting sports equipment. Please reserve a court slot first.
+                    Equipment can only be requested for an upcoming (or ongoing) confirmed court booking. Past or cancelled bookings do not count. Please reserve a court slot first.
                   </p>
+                  <Link
+                    href="/facilities"
+                    className="inline-block mt-1 rounded-lg bg-lime-400 px-3 py-1.5 text-[11px] font-bold text-slate-950 hover:bg-lime-300"
+                  >
+                    Book a Court
+                  </Link>
                 </div>
               ) : (
                 <form onSubmit={handleSubmitRequest} className="space-y-4">
@@ -588,11 +595,11 @@ export default function EquipmentPage() {
                       {bookings.map((b) => (
                         <option key={b._id} value={b._id}>
                           {b.facility?.name} ({b.facility?.sportType}) -{" "}
-                          {new Date(b.startAt).toLocaleDateString([], {
+                          {new Date(b.startAt).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                           })}{" "}
-                          ({new Date(b.startAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })})
+                          ({new Date(b.startAt).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })})
                         </option>
                       ))}
                     </select>
@@ -605,11 +612,18 @@ export default function EquipmentPage() {
                     </label>
                     <select
                       value={selectedEquipmentId}
-                      onChange={(e) => setSelectedEquipmentId(e.target.value)}
+                      onChange={(e) => {
+                        setSelectedEquipmentId(e.target.value);
+                        setRequestQuantity(1);
+                      }}
                       required
                       className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-lime-400"
                     >
-                      <option value="">Select equipment from catalog...</option>
+                      <option value="">
+                        {catalog.some((i) => i.status === "AVAILABLE" && i.availableQuantity > 0)
+                          ? "Select equipment from catalog..."
+                          : "No equipment currently available"}
+                      </option>
                       {catalog
                         .filter((item) => item.status === "AVAILABLE" && item.availableQuantity > 0)
                         .map((item) => (
@@ -631,7 +645,11 @@ export default function EquipmentPage() {
                         min={1}
                         max={maxAvailable > 0 ? maxAvailable : 1}
                         value={requestQuantity}
-                        onChange={(e) => setRequestQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                        onChange={(e) =>
+                          setRequestQuantity(
+                            Math.min(maxAvailable > 0 ? maxAvailable : 1, Math.max(1, parseInt(e.target.value) || 1))
+                          )
+                        }
                         required
                         className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-lime-400"
                       />

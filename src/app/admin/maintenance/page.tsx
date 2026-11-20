@@ -626,11 +626,11 @@ export default function AdminMaintenancePage() {
                         <div className="font-semibold text-white flex items-center gap-1.5">
                           <Clock className="h-3.5 w-3.5 text-amber-400" />
                           <span>
-                            {new Date(rec.startAt).toLocaleDateString([], {
+                            {new Date(rec.startAt).toLocaleDateString("en-US", {
                               month: "short",
                               day: "numeric",
                             })}{" "}
-                            {new Date(rec.startAt).toLocaleTimeString([], {
+                            {new Date(rec.startAt).toLocaleTimeString("en-US", {
                               hour: "2-digit",
                               minute: "2-digit",
                             })}
@@ -638,11 +638,11 @@ export default function AdminMaintenancePage() {
                         </div>
                         <div className="text-[11px] text-zinc-400 mt-0.5">
                           until{" "}
-                          {new Date(rec.endAt).toLocaleDateString([], {
+                          {new Date(rec.endAt).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                           })}{" "}
-                          {new Date(rec.endAt).toLocaleTimeString([], {
+                          {new Date(rec.endAt).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -877,7 +877,7 @@ export default function AdminMaintenancePage() {
                               {b.user?.name || "Student"} ({b.user?.email})
                             </span>
                             <div className="text-[10px] text-zinc-500">
-                              {new Date(b.startAt).toLocaleDateString([], { month: "short", day: "numeric" })}{" "}
+                              {new Date(b.startAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}{" "}
                               • {b.startTime} - {b.endTime}
                             </div>
                           </div>

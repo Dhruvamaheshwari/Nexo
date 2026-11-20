@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import TeacherSidebar from "./TeacherSidebar";
 import TeacherHeader from "./TeacherHeader";
 
@@ -20,14 +20,16 @@ export default function TeacherDashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#08070d] text-slate-100 flex">
+    <div className="theme-teacher min-h-screen bg-[var(--app-bg)] text-slate-100 flex">
       {/* Sidebar */}
-      <TeacherSidebar
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        activeTab={activeTab}
-        onTabChange={onTabChange}
-      />
+      <Suspense fallback={<div className="hidden w-72 shrink-0 lg:block" />}>
+        <TeacherSidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          activeTab={activeTab}
+          onTabChange={onTabChange}
+        />
+      </Suspense>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">

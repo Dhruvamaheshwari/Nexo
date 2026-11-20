@@ -11,6 +11,12 @@ import {
   getUserPrimeTimeBookingsForDate,
   promoteNextWaitlistUser,
 } from "./fairness.service";
+import {
+  notifyBookingCancelled,
+  notifyBookingCompleted,
+  notifyBookingConfirmed,
+  notifyBookingRejected,
+} from "./notification.service";
 
 export interface CreateBookingParams {
   facilityId: string;
@@ -150,7 +156,13 @@ export async function withFacilityLock<T>(facilityId: string, fn: () => Promise<
 /**
  * Creates a facility reservation with concurrency control and strict policy enforcement.
  */
-export async function createBooking({
+export async function createBooking(params: CreateBookingParams): Promise<IBooking> {
+  const booking = await createBookingInternal(params);
+  await notifyBookingConfirmed(booking);
+  return booking;
+}
+
+async function createBookingInternal({
   facilityId,
   startAt,
   endAt,
@@ -453,6 +465,7 @@ export async function cancelBooking({
   booking.cancelledAt = now;
   booking.cancellationReason = reason?.trim() || "Cancelled by user";
   await booking.save();
+  await notifyBookingCancelled(booking, booking.cancellationReason);
 
   // Task 6: Automatic Waiting List Promotion
   // When a booking is cancelled, check if eligible candidates are waiting for this court slot
@@ -908,6 +921,7 @@ export async function updateBookingStatusByAdmin({
 
       booking.status = "CONFIRMED";
       await booking.save();
+      await notifyBookingConfirmed(booking);
       return booking;
     });
   }
@@ -920,6 +934,7 @@ export async function updateBookingStatusByAdmin({
     booking.cancellationReason = reason?.trim() || "Rejected by administrator";
     booking.cancelledAt = new Date();
     await booking.save();
+    await notifyBookingRejected(booking, booking.cancellationReason);
     return booking;
   }
 
@@ -929,6 +944,7 @@ export async function updateBookingStatusByAdmin({
     }
     booking.status = "COMPLETED";
     await booking.save();
+    await notifyBookingCompleted(booking);
     return booking;
   }
 

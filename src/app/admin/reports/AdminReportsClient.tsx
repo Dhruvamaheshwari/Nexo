@@ -852,7 +852,7 @@ export default function AdminReportsClient({
                           </span>
                         </td>
                         <td className="py-3 px-4 text-zinc-400 text-[11px]">
-                          {new Date(row.createdAt).toLocaleDateString()}
+                          {new Date(row.createdAt).toLocaleDateString("en-US")}
                         </td>
                       </>
                     )}
@@ -904,10 +904,10 @@ export default function AdminReportsClient({
                         <td className="py-3 px-4 font-semibold text-zinc-200">{row.facility?.name}</td>
                         <td className="py-3 px-4 text-zinc-300 max-w-xs truncate">{row.reason}</td>
                         <td className="py-3 px-4 text-zinc-400 text-[11px]">
-                          {new Date(row.startAt).toLocaleString()}
+                          {new Date(row.startAt).toLocaleString("en-US")}
                         </td>
                         <td className="py-3 px-4 text-zinc-400 text-[11px]">
-                          {new Date(row.endAt).toLocaleString()}
+                          {new Date(row.endAt).toLocaleString("en-US")}
                         </td>
                         <td className="py-3 px-4">
                           <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-zinc-800 text-zinc-300 border border-zinc-700">
@@ -950,7 +950,7 @@ export default function AdminReportsClient({
                           </span>
                         </td>
                         <td className="py-3 px-4 text-zinc-400 text-[11px]">
-                          {new Date(row.createdAt).toLocaleDateString()}
+                          {new Date(row.createdAt).toLocaleDateString("en-US")}
                         </td>
                       </>
                     )}

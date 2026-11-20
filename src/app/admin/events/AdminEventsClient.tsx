@@ -162,7 +162,7 @@ export default function AdminEventsClient({
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-[#0e1320] border border-slate-800">
+        <div className="p-5 rounded-2xl bg-[var(--surface)] border border-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <span>Total Events</span>
             <Trophy className="w-4 h-4 text-purple-400" />
@@ -172,7 +172,7 @@ export default function AdminEventsClient({
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0e1320] border border-slate-800">
+        <div className="p-5 rounded-2xl bg-[var(--surface)] border border-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <span>Tournaments</span>
             <Activity className="w-4 h-4 text-amber-400" />
@@ -182,7 +182,7 @@ export default function AdminEventsClient({
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0e1320] border border-slate-800">
+        <div className="p-5 rounded-2xl bg-[var(--surface)] border border-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <span>Active / Open</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -192,7 +192,7 @@ export default function AdminEventsClient({
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0e1320] border border-slate-800">
+        <div className="p-5 rounded-2xl bg-[var(--surface)] border border-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <span>Total Athletes</span>
             <Users className="w-4 h-4 text-cyan-400" />
@@ -204,7 +204,7 @@ export default function AdminEventsClient({
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-[#0e1320] border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4">
+      <div className="bg-[var(--surface)] border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
@@ -269,7 +269,7 @@ export default function AdminEventsClient({
       </div>
 
       {/* Events Table */}
-      <div className="bg-[#0e1320] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-[var(--surface)] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-zinc-950/80 border-b border-slate-800 text-slate-400 font-semibold uppercase tracking-wider">
@@ -330,14 +330,14 @@ export default function AdminEventsClient({
                     </td>
 
                     <td className="py-3.5 px-4 text-slate-300">
-                      <div>{new Date(evt.startAt).toLocaleDateString()}</div>
+                      <div>{new Date(evt.startAt).toLocaleDateString("en-US")}</div>
                       <div className="text-[11px] text-slate-400">
-                        {new Date(evt.startAt).toLocaleTimeString([], {
+                        {new Date(evt.startAt).toLocaleTimeString("en-US", {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}{" "}
                         -{" "}
-                        {new Date(evt.endAt).toLocaleTimeString([], {
+                        {new Date(evt.endAt).toLocaleTimeString("en-US", {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
